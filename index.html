@@ -62,6 +62,7 @@ d3.csv("data.csv", function(data) {
             	dimensions.forEach(function(dim) { 
             		var sel = $("#" + dim.name); 
             		var v = $("#" + dim.name + " option:selected").val();
+                        sel.children().remove(); 
             		sel.append("<option value='ALL'>("+ dim.name + ")</option"); 
             		if (!v || v == "ALL") { 
             			sel.attr('selected', 'selected'); 
