@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<script type="text/javascript" src="lib/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="lib/d3.v2.min.js"></script>
+    	<script type="text/javascript" src="lib/crossfilter.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="lib/table.css" />
+	</head>
+
+	<body>
+		<div id="selectors">
+		</div>
+		<div id="data-table"/>
+		<script type="text/javascript">
+d3.csv("data.csv", function(data) {
+            var myParseInt = function (s) { 
+            	if (s == null || s == "") { 
+            		return null; 
+            	}
+            	return parseInt(s);
+            }
+
+            var measures_names = ["Quantity", "Revenue", "Margin"]; 
+            var dimension_names = ["COUNTRY", "REGION", "CITY", "SHOP", "VENDOR", "PRODUCT_FAMILY", "PRODUCT"]; 
+
+            data.forEach(function(e) {
+            	measures_names.forEach(function(col) { 
+            		e[col] = myParseInt(e[col]); 
+            	}); 
+            });
+            var ndx = crossfilter(data);
+            var dimensions = [] 
+            dimension_names.forEach(function(dimension_name) { 
+            	var dim = ndx.dimension(function(d) { return d[dimension_name];}); 
+            	var group = dim.group(); 
+            	var ddd = { name:dimension_name, dimension:dim, group:group}; 
+            	dimensions.push(ddd); 
+            }); 
+
+            var columns = dimension_names.concat(measures_names); 
+
+            var render_selectors = function() { 
+            	sel = $("#selectors"); 
+            	//sel.children().remove(); 
+            	dimensions.forEach(function(dim) { 
+            		var s = $("<select name='" + dim.name + "' id='" + dim.name + "' />"); 
+            		s.change(function() { 
+            			var v = $("#" + dim.name + " option:selected").val(); 
+            			if (v== "ALL") { 
+            				dim.dimension.filter(null); 
+            			} else { 
+            				dim.dimension.filter(v); 
+            			}
+            			render_table(); 
+            			update_selectors(); 
+            		}); 
+            		sel.append(s); 
+            	}); 
+            	update_selectors(); 
+            }
+
+            var update_selectors = function () { 
+            	dimensions.forEach(function(dim) { 
+            		var sel = $("#" + dim.name); 
+            		var v = $("#" + dim.name + " option:selected").val();
+            		sel.append("<option value='ALL'>("+ dim.name + ")</option"); 
+            		if (!v || v == "ALL") { 
+            			sel.attr('selected', 'selected'); 
+            		}
+            		dim.dimension.group().all().forEach(function(val) { 
+            			if (val.value == 0) { 
+            				return; 
+            			}
+            			o = $("<option value='" + val.key + "'>" + val.key +  "</option>"); 
+            			if (v == val.key) { 
+            				o.attr('selected', 'selected');  
+            			}
+            			sel.append(o); 
+            		}); 
+            	}); 
+            } 
+
+            render_selectors(); 
+
+            var render_table = function() { 
+            	var datas = dimensions[0].dimension.top(Infinity);
+            	var table = $("#data-table");
+            	table.children().remove(); 
+            	var header = $("<div/>"); 
+            	header.addClass("header"); 
+            	columns.forEach(function(column) {             	
+            		header.append("<span>" + column + "</span>"); 
+	            	}
+	            	);
+	            table.append(header);  
+            	datas.forEach(function(d) {
+            		var row = $("<div/>");
+            		columns.forEach(function(col) { 
+            			if (d[col] == null) { 
+            				row.append("<span/>");
+            			} else { 
+            				row.append("<span>"+d[col]+"</span>"); 
+            			} 
+            		}); 
+            		table.append(row); 
+            	}); 
+            }
+
+            render_table(); 
+			 } 
+			 );
+		</script>
+
+	</body>
+
+</html>

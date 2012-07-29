@@ -1,0 +1,27 @@
+#data-table {
+    width: 700px;
+    margin-bottom: 50px;
+}
+
+#data-table div { 
+    display: table-row;
+}
+
+#data-table span {
+    display: table-cell;
+    width: 135px;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 5px;
+    border: white solid 2px;
+}
+
+#data-table .header {
+    font-weight: bold;
+}
+
+#data-table .header span {
+    background-color: #c6dbef;
+    color: white;
+}

@@ -1,0 +1,7 @@
+COUNTRY,REGION,CITY,SHOP,VENDOR,PRODUCT_FAMILY,PRODUCT,Quantity,Revenue,Margin
+FRANCE,NORTH,Paris,Bastille,V000000000,Clothes,Dress,,0,0
+FRANCE,NORTH,Paris,Bastille,V000000000,Furniture,Chair,1,0,0
+FRANCE,SOUTH,Lille,Centre-Ville,V000096040,Furniture,Chair,1,0,1
+FRANCE,SOUTH,Lille,Centre-Ville,V000096042,Furniture,Chair,1,0,1
+FRANCE,SOUTH,Lille,Beauregard,V000096043,Clothes,Robe,1,1,1
+FRANCE,SOUTH,Lille,Beauregard,V000096043,Furniture,Chair,1,1,0

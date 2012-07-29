@@ -1,0 +1,30 @@
+{
+  "name": "crossfilter_table_sample",
+  "version": "0.0.1",
+  "description": "Sample JS Tables and Navigation Using cross filter",
+  "keywords": [
+    "visualization",
+    "svg",
+    "animation",
+    "canvas",
+    "chart",
+    "dimensional"
+  ],
+  "homepage": "http://www.github.com/fdouetteau/crossfilter_table_sample",
+  "author": {
+    "name": "Florian Douetteau",
+    "url": "http://www.linkedin.com/fdouetteau"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/fdouetteau/crossfilter_table_sample.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "connect": "2"
+  },
+  "scripts": {
+    "test": "./node_modules/vows/bin/vows"
+  }
+}
