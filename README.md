@@ -1,5 +1,4 @@
 
 To launch locally: 
-
-npm install 
+npm install package.json
 node server.js
